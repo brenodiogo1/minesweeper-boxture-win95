@@ -224,9 +224,7 @@ Finished in 0.123456s, 56.78 runs/s, 123.45 assertions/s.
 
 ---
 
-## 📝 Notes for Tom
-
-Hi Tom,
+## 📝 Notes
 
 ### ✅ All Requirements Met
 
