@@ -1,5 +1,7 @@
 ## 🎮 Preview
 
+
+
 # Minesweeper - Boxture Tech Challenge
 
 A complete Ruby on Rails implementation of the classic Minesweeper game, built for the Boxture technical challenge.
