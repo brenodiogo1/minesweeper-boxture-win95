@@ -2,6 +2,10 @@
 
 
 
+https://github.com/user-attachments/assets/70c6cc7e-c63e-4b80-ac8c-9c7d20c8e4e9
+
+
+
 # Minesweeper - Boxture Tech Challenge
 
 A complete Ruby on Rails implementation of the classic Minesweeper game, built for the Boxture technical challenge.
