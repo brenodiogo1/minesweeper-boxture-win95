@@ -1,0 +1,47 @@
+<div class="main-container">
+  <div class="win95-window" style="width: 400px;">
+    <div class="win95-title-bar">
+      <span>💣</span>
+      <span>Minesweeper</span>
+    </div>
+    
+    <div class="p-6">
+      <h1 class="text-3xl font-bold text-center mb-6">💣 Minesweeper</h1>
+      
+      <div class="space-y-2">
+        <%= form_with url: games_path, method: :post, local: true do |f| %>
+          <%= f.hidden_field :difficulty, value: 'beginner' %>
+          <button type="submit" class="difficulty-card w-full text-left">
+            <div class="font-bold text-lg mb-1">🟢 Beginner</div>
+            <div class="text-sm">9 × 9 grid, 10 mines</div>
+          </button>
+        <% end %>
+
+        <%= form_with url: games_path, method: :post, local: true do |f| %>
+          <%= f.hidden_field :difficulty, value: 'intermediate' %>
+          <button type="submit" class="difficulty-card w-full text-left">
+            <div class="font-bold text-lg mb-1">🟡 Intermediate</div>
+            <div class="text-sm">16 × 16 grid, 40 mines</div>
+          </button>
+        <% end %>
+
+        <%= form_with url: games_path, method: :post, local: true do |f| %>
+          <%= f.hidden_field :difficulty, value: 'expert' %>
+          <button type="submit" class="difficulty-card w-full text-left">
+            <div class="font-bold text-lg mb-1">🔴 Expert</div>
+            <div class="text-sm">30 × 16 grid, 99 mines</div>
+          </button>
+        <% end %>
+      </div>
+
+      <div class="mt-6 text-center">
+        <%= link_to "🏆 High Scores", scores_path, class: "win95-button" %>
+      </div>
+
+      <div class="mt-4 text-xs text-center">
+        <p><strong>How to play:</strong></p>
+        <p>Left click to reveal • Right click to flag</p>
+      </div>
+    </div>
+  </div>
+</div>

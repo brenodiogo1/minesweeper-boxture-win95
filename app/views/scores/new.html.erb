@@ -1,0 +1,83 @@
+<div class="main-container">
+  <div class="win95-window" style="max-width: 500px;">
+    <!-- Title Bar -->
+    <div class="win95-title-bar">
+      <span>💾 Save Score</span>
+    </div>
+
+    <!-- Window Content -->
+    <div class="p-6">
+      <!-- Victory Message -->
+      <div class="message-box victory-animation">
+        <div class="text-center">
+          <div class="text-5xl mb-3">🎉</div>
+          <h2 class="text-2xl font-bold mb-2">Congratulations!</h2>
+          <p class="text-base mb-4">You won the game!</p>
+        </div>
+
+        <!-- Game Stats -->
+        <div class="win95-groupbox">
+          <div class="win95-groupbox-title">Game Statistics</div>
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <span class="font-bold">Difficulty:</span>
+              <span><%= @game.difficulty.capitalize %></span>
+            </div>
+            <div class="flex justify-between">
+              <span class="font-bold">Clicks:</span>
+              <span><%= @game.clicks %></span>
+            </div>
+            <div class="flex justify-between">
+              <span class="font-bold">Time:</span>
+              <span><%= @game.time_taken %> seconds</span>
+            </div>
+            <div class="flex justify-between border-t-2 pt-2">
+              <span class="font-bold">Total Score:</span>
+              <span class="font-bold"><%= Score.calculate_score(@game.clicks, @game.time_taken) %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Score Form -->
+      <%= form_with model: @score, url: game_scores_path(@game), method: :post, class: "mt-4" do |f| %>
+        <% if @score.errors.any? %>
+          <div class="message-box mb-4" style="background-color: #ffcccc;">
+            <h3 class="font-bold mb-2">❌ <%= pluralize(@score.errors.count, "error") %> prevented this score from being saved:</h3>
+            <ul class="ml-4">
+              <% @score.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="win95-groupbox">
+          <div class="win95-groupbox-title">Enter Your Name</div>
+          
+          <div class="mb-4">
+            <%= f.label :player_name, "Player Name:", class: "block font-bold mb-2 text-sm" %>
+            <%= f.text_field :player_name, 
+                class: "win95-inset w-full p-2 text-base",
+                placeholder: "Enter your name...",
+                maxlength: 50,
+                required: true,
+                autofocus: true %>
+          </div>
+
+          <div class="flex gap-2 justify-center flex-wrap">
+            <%= f.submit "💾 Save Score", class: "win95-button" %>
+            <%= link_to "🏠 Home", root_path, class: "win95-button" %>
+            <%= link_to "🏆 Leaderboard", scores_path(difficulty: @game.difficulty), class: "win95-button" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer style="position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.7); color: #ffffff; text-align: center; padding: 10px; font-size: 11px;">
+  Made with ❤️ by Breno | 
+  <%= link_to "GitHub", "https://github.com/yourusername/minesweeper-boxture", target: "_blank", style: "color: #00ffff; text-decoration: none;" %>
+</footer>

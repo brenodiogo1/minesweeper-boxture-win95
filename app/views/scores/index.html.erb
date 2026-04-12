@@ -1,0 +1,81 @@
+<div class="main-container">
+  <div class="win95-window" style="max-width: 700px;">
+    <!-- Title Bar -->
+    <div class="win95-title-bar">
+      <span>🏆 High Scores - Minesweeper</span>
+    </div>
+
+    <!-- Window Content -->
+    <div class="p-6">
+      <!-- Difficulty Selector -->
+      <div class="mb-6">
+        <div class="flex gap-2 justify-center flex-wrap">
+          <% @all_difficulties.each do |diff| %>
+            <%= link_to diff.capitalize, 
+                scores_path(difficulty: diff), 
+                class: "win95-button #{@difficulty == diff ? 'active' : ''}" %>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Leaderboard -->
+      <div class="win95-groupbox">
+        <div class="win95-groupbox-title">Top 10 - <%= @difficulty.capitalize %></div>
+        
+        <% if @scores.any? %>
+          <table class="w-full text-sm">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--win95-dark-gray);">
+                <th class="text-left p-2">Rank</th>
+                <th class="text-left p-2">Player</th>
+                <th class="text-center p-2">Clicks</th>
+                <th class="text-center p-2">Time</th>
+                <th class="text-center p-2">Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @scores.each_with_index do |score, index| %>
+                <tr style="<%= 'background-color: var(--win95-light-gray);' if index.even? %>">
+                  <td class="p-2 font-bold">
+                    <%= case index
+                        when 0 then '🥇'
+                        when 1 then '🥈'
+                        when 2 then '🥉'
+                        else "#{index + 1}."
+                        end %>
+                  </td>
+                  <td class="p-2"><%= score.player_name %></td>
+                  <td class="p-2 text-center"><%= score.clicks %></td>
+                  <td class="p-2 text-center"><%= score.time_taken %>s</td>
+                  <td class="p-2 text-center font-bold"><%= score.total_score %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <div class="text-center p-6">
+            <p class="text-lg mb-2">No scores yet!</p>
+            <p class="text-sm">Be the first to complete a game and save your score.</p>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Actions -->
+      <div class="mt-6 flex gap-2 justify-center flex-wrap">
+        <%= link_to "🏠 Home", root_path, class: "win95-button" %>
+        <%= link_to "🎮 New Game", root_path, class: "win95-button" %>
+      </div>
+
+      <!-- Score Formula Info -->
+      <div class="mt-4 text-xs text-center" style="color: var(--win95-dark-gray);">
+        Score Formula: 10000 - (clicks × 10) - (time × 5)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer style="position: fixed; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.7); color: #ffffff; text-align: center; padding: 10px; font-size: 11px;">
+  Made with ❤️ by Breno | 
+  <%= link_to "GitHub", "https://github.com/yourusername/minesweeper-boxture", target: "_blank", style: "color: #00ffff; text-decoration: none;" %>
+</footer>

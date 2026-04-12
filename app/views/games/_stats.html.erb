@@ -1,0 +1,45 @@
+<div id="game-stats">
+  <div class="status-panel">
+    <div class="digital-counter">
+      <%= sprintf('%03d', [game.remaining_mines, 0].max) %>
+    </div>
+    
+    <%= form_with url: root_path, method: :get, local: true, style: "display: inline;" do |f| %>
+      <button type="submit" class="win95-button reset-button">
+        <% if game.won? %>
+          😎
+        <% elsif game.lost? %>
+          😵
+        <% else %>
+          🙂
+        <% end %>
+      </button>
+    <% end %>
+    
+    <div class="digital-counter" data-controller="timer" data-timer-started-value="<%= game.started_at&.iso8601 %>" data-timer-finished-value="<%= game.finished? %>">
+      <%= sprintf('%03d', game.elapsed_time) %>
+    </div>
+  </div>
+
+  <% if game.won? %>
+    <div class="message-box victory-animation">
+      <p class="text-center font-bold mb-2">🎉 You Win! 🎉</p>
+      <p class="text-center text-sm mb-3">
+        <strong>Clicks:</strong> <%= game.clicks %> | 
+        <strong>Time:</strong> <%= game.elapsed_time %>s
+      </p>
+      <%= link_to "Save Score", new_score_path(game_id: game.id), class: "win95-button block text-center" %>
+    </div>
+  <% elsif game.lost? %>
+    <div class="message-box">
+      <p class="text-center font-bold mb-2">💥 Game Over! 💥</p>
+      <p class="text-center text-sm">You hit a mine!</p>
+    </div>
+  <% end %>
+
+  <div class="stats-panel">
+    <strong>Clicks:</strong> <%= game.clicks %> | 
+    <strong>Mines:</strong> <%= game.mines %> | 
+    <strong>Difficulty:</strong> <%= game.difficulty.capitalize %>
+  </div>
+</div>

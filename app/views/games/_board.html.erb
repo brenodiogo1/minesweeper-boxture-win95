@@ -1,0 +1,58 @@
+<div class="game-board" id="game-board">
+  <% game.rows.times do |row| %>
+    <div class="board-row">
+      <% game.cols.times do |col| %>
+        <% cell = game.cells.find_by(row: row, col: col) %>
+        <% if cell %>
+          <div class="cell-container" oncontextmenu="event.preventDefault(); document.getElementById('flag-form-<%= row %>-<%= col %>').requestSubmit(); return false;">
+            <%= form_with url: reveal_cell_game_path(game), method: :post, local: false, class: "cell-form", id: "reveal-form-#{row}-#{col}" do |f| %>
+              <%= f.hidden_field :row, value: row %>
+              <%= f.hidden_field :col, value: col %>
+              
+              <% 
+                if cell.state == 'hidden'
+                  content = ''
+                  css_class = 'cell cell-hidden'
+                  is_disabled = false
+                elsif cell.state == 'flagged'
+                  content = '🚩'
+                  css_class = 'cell cell-flagged'
+                  is_disabled = false
+                elsif cell.state == 'revealed'
+                  if cell.is_mine
+                    content = '💣'
+                    css_class = 'cell cell-revealed cell-mine'
+                    is_disabled = true
+                  elsif cell.neighbor_mines == 0
+                    content = ''
+                    css_class = 'cell cell-revealed'
+                    is_disabled = true
+                  else
+                    content = cell.neighbor_mines.to_s
+                    css_class = "cell cell-revealed number-#{cell.neighbor_mines}"
+                    is_disabled = true
+                  end
+                else
+                  content = ''
+                  css_class = 'cell cell-hidden'
+                  is_disabled = false
+                end
+              %>
+              
+              <button 
+                type="submit" 
+                class="<%= css_class %>"
+                <%= 'disabled' if is_disabled || game.finished? %>
+              ><%= raw content %></button>
+            <% end %>
+            
+            <%= form_with url: toggle_flag_game_path(game), method: :post, local: false, style: "display: none;", id: "flag-form-#{row}-#{col}" do |f| %>
+              <%= f.hidden_field :row, value: row %>
+              <%= f.hidden_field :col, value: col %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

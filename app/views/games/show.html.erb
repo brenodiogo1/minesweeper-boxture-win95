@@ -1,0 +1,22 @@
+<div class="main-container">
+  <div class="win95-window" style="max-width: fit-content;">
+    <div class="win95-title-bar">
+      <span>💣</span>
+      <span>Minesweeper - <%= @game.difficulty.capitalize %></span>
+    </div>
+    
+    <div class="p-4">
+      <%= render partial: "games/stats", locals: { game: @game } %>
+      <%= render partial: "games/board", locals: { game: @game } %>
+      
+      <div class="mt-4 text-center">
+        <%= link_to "← New Game", root_path, class: "win95-button" %>
+        <%= link_to "🏆 High Scores", scores_path, class: "win95-button ml-4" %>
+      </div>
+      
+      <div class="mt-3 text-center text-xs">
+        <strong>How to play:</strong> Left click to reveal • Right click to flag 🚩
+      </div>
+    </div>
+  </div>
+</div>

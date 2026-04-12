@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Minesweeper - Boxture Challenge</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <div class="main-container">
+      <%= yield %>
+    </div>
+    
+    <footer style="position: fixed; bottom: 0; left: 0; right: 0; text-align: center; padding: 10px; background: rgba(0, 128, 128, 0.9); color: white; font-size: 11px; border-top: 1px solid rgba(255, 255, 255, 0.3); z-index: 1000;">
+      Made with ❤️ by <a href="https://brenodiogo.com" target="_blank" style="color: #ffffff; text-decoration: none;">Breno Diogo</a> - Engineering for Boxture Tech Challenge
+    </footer>
+  </body>
+</html>
