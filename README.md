@@ -51,7 +51,7 @@ rails server
 
 ---
 
-## 🏗️ Architectural Decisions & Answers to Tom's Questions
+## 🏗️ Architectural Decisions & Answers to Questions,
 
 ### 1. How would you approach this?
 My approach relies on traditional Server-Side Rendering (SSR) combined with Rails 7's Hotwire (Turbo Streams). This allows the game to feel instantaneous and interactive while strictly adhering to the "No JavaScript for game logic" rule. Every click sends a Turbo request to the controller, the Ruby service processes the game state, and the server renders the updated HTML.
