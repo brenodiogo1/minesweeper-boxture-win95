@@ -273,8 +273,6 @@ Then visit http://localhost:3000 and play!
 
 All game logic is server-side in Ruby. No custom JavaScript was used for game mechanics.
 
-Best regards,  
-Breno
 
 ---
 
